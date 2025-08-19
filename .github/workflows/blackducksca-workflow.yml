@@ -19,6 +19,14 @@ jobs:
   blackducksca:
     runs-on: ubuntu-latest
     steps:
+      - name: Check if link is reachable
+        run:
+         if curl --head --silent --fail https://blackduck-test.vih.infineon.com; then
+            echo "Link is reachable."
+         else
+            echo "Link is not reachable."
+            exit 1
+         fi
       - name: Checkout Source
         uses: actions/checkout@v4
       - name: Black Duck Security Scan
